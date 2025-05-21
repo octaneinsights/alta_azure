@@ -1,0 +1,124 @@
+FieldRoutes Data Warehouse: Comprehensive Schema Overview
+This reference consolidates the **core fact and dimension tables** for the FieldRoutes operational data warehouse. It reflects the reconciled design vetted against the FieldRoutes Swagger API and business requirements, and it is structured for implementation in Azure Synapse / Azure SQL DW with downstream consumption in Power BI. Each table lists its key fields (business/natural keys, surrogate keys where advised, foreign keys, and critical measures). Surrogate keys (indicated with the _Key suffix) are recommended for slowly‑changing dimensions or where natural keys might not be stable.
+Appointment_Fact
+One row per service appointment (granularity: appointmentID). Captures operational timing, outcome, and financial impact.
+
+Subscription_Fact
+One row per active or historical subscription (service agreement). Tracks key lifecycle dates, pricing, and sales attribution.
+
+Payment_Fact
+Captures each customer payment, refund, write‑off, or credit memo.
+
+AppliedPayment_Fact
+Bridge fact allocating payments to invoices (many‑to‑many).
+
+Route_Fact
+Daily technician route manifest (one per route per day).
+
+Ticket_Dim
+Invoice header information (non‑additive amounts stored for convenience).
+
+TicketItem_Fact
+Line‑item detail for each invoice (granularity: TicketItemID).
+
+Note_Fact
+Customer notes / communications (one per note).
+
+Task_Fact
+Internal tasks / alerts assigned to staff.
+
+AppointmentReminder_Fact
+Automated reminders sent to customers for appointments.
+
+DoorKnock_Fact
+Door‑to‑door prospecting interactions.
+
+FinancialTransaction_Fact
+Chargebacks (losses) and processor disbursements (funds in).
+
+FlagAssignment_Fact
+Factless fact linking generic flags to entities (customer, subscription, etc.).
+
+Customer_Dim
+Slowly‑Changing Dimension Type 2 representing customer accounts.
+
+Employee_Dim
+Slowly‑Changing Dimension for employees / reps / techs.
+
+Office_Dim
+Branches / offices.
+
+Region_Dim
+Territory / region polygons for routing.
+
+Product_Dim
+Add‑on products sold on invoices.
+
+ServiceType_Dim
+Catalog of recurring service templates.
+
+SubscriptionCancellationReason_Dim
+Lookup of subscription cancel reasons.
+
+AppointmentCancellationReason_Dim
+Lookup of appointment cancel reasons.
+
+AppointmentRescheduleReason_Dim
+Lookup of appointment reschedule reasons.
+
+ReserviceReason_Dim
+Reasons for free re‑service visits.
+
+PaymentMethod_Dim
+Payment method codes.
+
+PaymentStatus_Dim
+Payment outcome codes.
+
+PaymentSource_Dim
+Origin system of payments.
+
+AppointmentStatus_Dim
+Appointment lifecycle statuses.
+
+ReminderMethod_Dim
+Delivery channel for reminders.
+
+ReminderStatus_Dim
+Status of reminders.
+
+ContactType_Dim
+Types of customer notes/contacts.
+
+TaskCategory_Dim
+Categories of tasks.
+
+TaskStatus_Dim
+Task status codes.
+
+RouteGroup_Dim
+Logical grouping of routes.
+
+RouteSpot_Dim
+Individual capacity slots on a route.
+
+Knock_Dim
+Competitor / objection lookup for door knocks.
+
+DoorStatus_Dim
+Outcome statuses for door visits.
+
+GenericFlag_Dim
+User‑defined flags.
+
+FlagEntityType_Dim
+Lookup of entity types for flags.
+
+CustomerSource_Dim
+Marketing source channels.
+
+Skill_Dim
+Technician or salesperson skills.
+
+Team_Dim
+Operational teams / groups of employees.
